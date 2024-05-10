@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://xoogae0gkyds"]
 
-[ext_resource type="Material" path="res://scene/subsystems/explosion_rod_mat.tres" id="1"]
+[ext_resource type="Material" uid="uid://gpmbf43wmuiw" path="res://scene/subsystems/explosion_rod_mat.tres" id="1"]
 [ext_resource type="Script" path="res://scene/subsystems/explosion_rod.gd" id="2"]
 
 [sub_resource type="CylinderMesh" id="1"]
