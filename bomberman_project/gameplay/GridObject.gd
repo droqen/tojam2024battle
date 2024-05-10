@@ -42,16 +42,17 @@ func try_move(dir) -> bool:
 		return true
 func _physics_process(_delta):
 	just_entered = false
-	var new_ground_velocity = lerp(velocity, (goalpos-position).limit_length(0.2)*2, 0.2)
-	if (goalpos-position).length() < 0.2:
-		new_ground_velocity *= 0.5
+	var accellerp = 0.2
+	if (goalpos-position).length() < 0.4:
+		accellerp = 0.7
+	var new_ground_velocity = lerp(velocity, (goalpos-position).limit_length(0.2)*1.5, accellerp)
 	velocity.x = new_ground_velocity.x
 	velocity.z = new_ground_velocity.z
 	if position.y > floorheight + 0.01 or velocity.y > 0:
-		velocity.y -= 0.02
+		velocity.y -= 0.04
 	else:
-		position.y = floorheight
-		if velocity.y < -0.04:
+		position.y = lerp(position.y, floorheight, 0.5)
+		if velocity.y < -0.1:
 			velocity.y *= -0.5
 		else:
 			velocity.y = 0.0

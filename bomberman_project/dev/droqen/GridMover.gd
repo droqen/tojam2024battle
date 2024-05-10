@@ -17,7 +17,7 @@ func try_move(dir):
 		if super.try_move(dir):
 			return true
 		else:
-			self.velocity += GameGrid.cell_to_pos(dir) * 0.125
+			self.velocity += GameGrid.cell_to_pos(dir) * 0.25
 			return false
 	else:
 		return false

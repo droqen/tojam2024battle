@@ -14,6 +14,10 @@ func _physics_process(_delta):
 		timer -= 1
 	elif not detonated:
 		detonate()
+func setup_underground_lay():
+	position.y = floorheight - 1.5
+	velocity.y = 0.0
+	return self
 func exploded():
 	if timer > 5: timer = 5
 func detonate():
