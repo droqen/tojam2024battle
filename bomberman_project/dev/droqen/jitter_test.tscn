@@ -2,10 +2,10 @@
 
 [ext_resource path="res://gameplay/basic_block.tscn" type="PackedScene" id=1]
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 
 [node name="block" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14871, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14871, 0 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.92779 )
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.92779 )

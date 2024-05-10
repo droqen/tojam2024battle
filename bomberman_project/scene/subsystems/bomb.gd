@@ -9,6 +9,7 @@ var maxreach : int = 3
 var detonated : bool = false
 
 func _physics_process(_delta):
+	super._physics_process(_delta)
 	if timer > 0:
 		timer -= 1
 	elif not detonated:
@@ -44,6 +45,6 @@ func detonate():
 				if finished:
 					break
 			explosion_rays[i][0] = cell2
-		EXPLOSION_ROD.instance().setup(get_parent(), explosion_rays[0][0], explosion_rays[1][0])
-		EXPLOSION_ROD.instance().setup(get_parent(), explosion_rays[2][0], explosion_rays[3][0])
+		EXPLOSION_ROD.instantiate().setup(get_parent(), explosion_rays[0][0], explosion_rays[1][0])
+		EXPLOSION_ROD.instantiate().setup(get_parent(), explosion_rays[2][0], explosion_rays[3][0])
 		queue_free()

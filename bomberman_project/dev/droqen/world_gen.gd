@@ -1,9 +1,9 @@
 extends Node
 
 const BLOCK = preload("res://gameplay/basic_block.tscn")
-onready var w = get_parent()
-onready var world_width : int = 13
-onready var world_height : int = 9
+@onready var w = get_parent()
+@onready var world_width : int = 13
+@onready var world_height : int = 9
 
 func _ready():
 	for x in range(-world_width,world_width+1):
@@ -16,4 +16,5 @@ func _ready():
 				spawn_block_at(x,y)
 
 func spawn_block_at(x,y):
-				var block = BLOCK.instance().setup(w, Vector2(x,y))
+				var block = BLOCK.instantiate().setup(w, Vector2(x,y))
+				
