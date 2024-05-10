@@ -12,6 +12,8 @@ func _physics_process(_delta):
 	)
 	if dpad:
 		self.try_move(dpad)
+		self.velocity.y = 0.2
+		self.floorheight = 0.0
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		drop_bomb()
@@ -23,4 +25,6 @@ func drop_bomb():
 		if obj != self:
 			return false # drop failed
 	var bomb = BOMB.instance().setup(get_parent(), cell)
+	self.velocity.y = 0.2
+	self.floorheight = 2.0
 	return true # drop succeeded

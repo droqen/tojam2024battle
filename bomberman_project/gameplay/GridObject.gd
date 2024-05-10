@@ -5,6 +5,7 @@ var goalpos : Vector3
 var cell : Vector2
 
 var velocity : Vector3
+var floorheight : float = 0.0
 
 var just_entered : bool = false
 
@@ -40,13 +41,16 @@ func try_move(dir) -> bool:
 		return true
 func _physics_process(_delta):
 	just_entered = false
-	velocity.x = lerp(velocity.x, (goalpos-translation).x, 0.15)
-	velocity.z = lerp(velocity.z, (goalpos-translation).z, 0.15)
-	if translation.y > 0:
+	var new_ground_velocity = lerp(velocity, (goalpos-translation).limit_length(0.2)*2, 0.2)
+	if (goalpos-translation).length() < 0.2:
+		new_ground_velocity *= 0.5
+	velocity.x = new_ground_velocity.x
+	velocity.z = new_ground_velocity.z
+	if translation.y > floorheight + 0.01 or velocity.y > 0:
 		velocity.y -= 0.02
 	else:
-		translation.y = 0
-		if velocity.y < -0.02:
+		translation.y = floorheight
+		if velocity.y < -0.04:
 			velocity.y *= -0.5
 		else:
 			velocity.y = 0.0

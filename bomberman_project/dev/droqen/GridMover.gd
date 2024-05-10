@@ -5,8 +5,9 @@ var goalfacedir : Vector3 = Vector3.RIGHT
 
 func _physics_process(_delta):
 	
-	$looktarget.translation = lerp($looktarget.translation, goalfacedir, 0.40)
-	look_at_from_position(Vector3.ZERO, $looktarget.translation, Vector3.UP)
+	$looktarget.translation = lerp($looktarget.translation + translation, goalfacedir, 0.40)
+	look_at($looktarget.translation, Vector3.UP)
+#	look_at_from_position(Vector3.ZERO, $looktarget.translation, Vector3.UP)
 	
 	$Node/column.translation = goalpos
 
