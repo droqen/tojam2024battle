@@ -20,13 +20,13 @@ script = ExtResource( 1 )
 mesh = SubResource( 3 )
 
 [node name="tail" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16849 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.168 )
 mesh = SubResource( 4 )
 
 [node name="ear" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462069, 1.40851, 0.361579 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462, 1.409, -0.362 )
 mesh = SubResource( 5 )
 
 [node name="ear2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.462, 1.409, 0.362 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.462, 1.409, -0.362 )
 mesh = SubResource( 5 )
