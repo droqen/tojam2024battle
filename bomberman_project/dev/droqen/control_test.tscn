@@ -30,7 +30,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 shape = SubResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.967762, -0.129408, 0.21608, 0, 0.857912, 0.513796, -0.251867, -0.497232, 0.830255, 14.7367, 5.95441, 20.9534 )
+transform = Transform( 1, 0, 0, 0, 0.569279, 0.822144, 0, -0.822144, 0.569279, 0, 41.202, 30.177 )
+projection = 1
+size = 50.0
 
 [node name="bunny" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
