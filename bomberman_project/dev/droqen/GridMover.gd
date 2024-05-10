@@ -6,4 +6,10 @@ func _physics_process(_delta):
 		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
 	)
 	if dpad:
-		self.set_cell(self.cell + dpad)
+		if self.try_move(dpad):
+			pass
+		else:
+			translate(
+				0.5 * GameGrid.cell_to_pos(dpad)
+			)
+		

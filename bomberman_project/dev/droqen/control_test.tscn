@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://dev/droqen/GridMover.gd" type="Script" id=1]
+[ext_resource path="res://scene/subsystems/block_world.tscn" type="PackedScene" id=2]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 100, 100 )
@@ -55,3 +56,5 @@ mesh = SubResource( 5 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( -0.464342, -0.177371, 0.867713, -0.00958276, 0.98069, 0.195336, -0.885604, 0.0823876, -0.457075, 0, 21.0302, 0 )
+
+[node name="block_world" parent="." instance=ExtResource( 2 )]
