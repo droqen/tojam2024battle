@@ -15,7 +15,7 @@ func setup(parent, cell):
 	yield(parent.get_tree(),"idle_frame")
 	set_cell(cell)
 	parent.add_child(self)
-	owner = parent.owner if parent.owner else self
+	owner = parent.owner
 	return self
 
 func _enter_tree():
@@ -43,7 +43,7 @@ func _physics_process(_delta):
 	velocity.x = lerp(velocity.x, (goalpos-translation).x, 0.15)
 	velocity.z = lerp(velocity.z, (goalpos-translation).z, 0.15)
 	if translation.y > 0:
-		velocity.y -= 0.01
+		velocity.y -= 0.02
 	else:
 		translation.y = 0
 		if velocity.y < -0.02:

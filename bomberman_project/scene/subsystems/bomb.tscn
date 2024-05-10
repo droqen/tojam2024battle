@@ -3,6 +3,8 @@
 [ext_resource path="res://scene/subsystems/bomb.gd" type="Script" id=1]
 
 [sub_resource type="SphereMesh" id=1]
+radius = 1.5
+height = 3.0
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.32549, 0.32549, 0.32549, 1 )

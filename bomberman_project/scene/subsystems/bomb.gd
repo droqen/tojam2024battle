@@ -1,6 +1,6 @@
 extends GridObject
 
-const IS_BOMB = true
+const IS_EXPLODABLE = true
 
 const EXPLOSION_ROD = preload("res://scene/subsystems/explosion_rod.tscn")
 
@@ -31,13 +31,18 @@ func detonate():
 		for i in range(4):
 			var cell2 : Vector2 = explosion_rays[i][0]
 			var dir : Vector2 = explosion_rays[i][1]
+			var finished : bool = false
 			for _r in range(maxreach):
 				if GameGrid.is_wall(cell2 + dir):
 					break
 				else:
 					cell2 += dir
 					for obj in GameGrid.find_objs_at_cell(cell2):
-						if obj.has_method('exploded'): obj.call('exploded')
+						if obj.has_method('exploded'):
+							obj.call('exploded')
+							finished = true
+				if finished:
+					break
 			explosion_rays[i][0] = cell2
 		EXPLOSION_ROD.instance().setup(get_parent(), explosion_rays[0][0], explosion_rays[1][0])
 		EXPLOSION_ROD.instance().setup(get_parent(), explosion_rays[2][0], explosion_rays[3][0])
