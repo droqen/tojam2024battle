@@ -9,13 +9,31 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "GridObject",
+"class": "GridMover",
+"language": "GDScript",
+"path": "res://dev/droqen/GridMover.gd"
+}, {
 "base": "Spatial",
 "class": "GridObject",
 "language": "GDScript",
 "path": "res://gameplay/GridObject.gd"
+}, {
+"base": "GridMover",
+"class": "PlayerMover",
+"language": "GDScript",
+"path": "res://gameplay/PlayerMover.gd"
+}, {
+"base": "GridObject",
+"class": "WallObject",
+"language": "GDScript",
+"path": "res://gameplay/WallObject.gd"
 } ]
 _global_script_class_icons={
-"GridObject": ""
+"GridMover": "",
+"GridObject": "",
+"PlayerMover": "",
+"WallObject": ""
 }
 
 [application]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://dev/droqen/GridMover.gd" type="Script" id=1]
+[ext_resource path="res://gameplay/PlayerMover.gd" type="Script" id=1]
 
 [sub_resource type="SphereMesh" id=3]
 
@@ -11,6 +11,11 @@ height = 0.5
 [sub_resource type="CylinderMesh" id=5]
 top_radius = 0.2
 bottom_radius = 0.2
+
+[sub_resource type="CylinderMesh" id=6]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 10.0
 
 [node name="bunny" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
@@ -30,3 +35,12 @@ mesh = SubResource( 5 )
 [node name="ear2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.462, 1.409, -0.362 )
 mesh = SubResource( 5 )
+
+[node name="looktarget" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="Node" type="Node" parent="."]
+
+[node name="column" type="MeshInstance" parent="Node"]
+visible = false
+mesh = SubResource( 6 )

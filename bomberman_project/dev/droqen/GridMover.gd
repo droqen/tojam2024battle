@@ -1,18 +1,14 @@
 extends GridObject
+class_name GridMover
 
 var goalfacedir : Vector3 = Vector3.RIGHT
 
 func _physics_process(_delta):
-	var dpad = Vector2(
-		(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
-		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
-	)
-	if dpad:
-		if self.try_move(dpad):
-			pass
-		else:
-			translation += 0.5 * GameGrid.cell_to_pos(dpad)
-	look_at(translation + goalfacedir, Vector3.UP)
+	
+	$looktarget.translation = lerp($looktarget.translation, goalfacedir, 0.40)
+	look_at_from_position(Vector3.ZERO, $looktarget.translation, Vector3.UP)
+	
+	$Node/column.translation = goalpos
 
 func try_move(dir):
 	if dir:
@@ -20,6 +16,7 @@ func try_move(dir):
 		if .try_move(dir):
 			return true
 		else:
+			self.velocity += GameGrid.cell_to_pos(dir) * 0.45
 			return false
 	else:
 		return false

@@ -16,8 +16,4 @@ func _ready():
 				spawn_block_at(x,y)
 
 func spawn_block_at(x,y):
-				var block = BLOCK.instance()
-				block.set_cell(Vector2(x,y))
-				yield(get_tree(),"idle_frame")
-				w.add_child(block)
-				block.owner = owner if owner else self
+				var block = BLOCK.instance().setup(w, Vector2(x,y))
