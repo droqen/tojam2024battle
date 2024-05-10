@@ -8,10 +8,25 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "GridObject",
+"language": "GDScript",
+"path": "res://gameplay/GridObject.gd"
+} ]
+_global_script_class_icons={
+"GridObject": ""
+}
+
 [application]
 
 config/name="bomberman_project"
+run/main_scene="res://dev/droqen/control_test.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameGrid="*res://gameplay/GameGrid.gd"
 
 [gui]
 
