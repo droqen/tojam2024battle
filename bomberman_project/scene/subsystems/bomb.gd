@@ -45,7 +45,10 @@ func detonate():
 					for obj in GameGrid.find_objs_at_cell(cell2):
 						if obj.has_method('exploded'):
 							obj.call('exploded')
-							finished = true
+							if obj.get('IS_TRANSPARENT'):
+								continue
+							else:
+								finished = true
 				if finished:
 					break
 			explosion_rays[i][0] = cell2

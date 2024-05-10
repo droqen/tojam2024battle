@@ -2,6 +2,7 @@ extends GridMover
 class_name PlayerMover
 
 const IS_EXPLODABLE : bool = true
+const IS_TRANSPARENT : bool = true
 func exploded():
 	queue_free() # oof, ya dead
 
