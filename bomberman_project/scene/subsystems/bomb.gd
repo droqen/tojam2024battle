@@ -4,7 +4,7 @@ const IS_EXPLODABLE = true
 
 const EXPLOSION_ROD = preload("res://scene/subsystems/explosion_rod.tscn")
 
-var timer : int = 100
+var timer : int = 200 # longer timer - 3+ seconds
 var maxreach : int = 3
 var detonated : bool = false
 
