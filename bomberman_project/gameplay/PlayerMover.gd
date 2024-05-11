@@ -19,30 +19,28 @@ func _ready():
 
 func get_inputs():
 	if !is_multiplayer_authority():
-		return inputs
-	else:
-		var stick = Vector2(
-			(1 if Input.is_action_pressed("ui_right") else 0) - (1 if Input.is_action_pressed("ui_left") else 0),
-			(1 if Input.is_action_pressed("ui_up") else 0) - (1 if Input.is_action_pressed("ui_down") else 0)
-		)
-		if stick.y: stick.x = 0
-		if self.velocity.y > 0.25 or self.position.y > self.floorheight + 0.25:
-			stick *= 0
-		var dpad = Vector2(
-			(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
-			(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
-		)
-		var bomb = Input.is_action_just_pressed("ui_accept")
+		return 
 
-		#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
-			#var packet_data = {
-			#'input': [playerNum, stick, dpad, bomb]
-			#}
-			#network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
-		#
-		return [stick, dpad, bomb]
-	
-	return [Vector2.ZERO, Vector2.ZERO, false]
+	var stick = Vector2(
+		(1 if Input.is_action_pressed("ui_right") else 0) - (1 if Input.is_action_pressed("ui_left") else 0),
+		(1 if Input.is_action_pressed("ui_up") else 0) - (1 if Input.is_action_pressed("ui_down") else 0)
+	)
+	if stick.y: stick.x = 0
+	if self.velocity.y > 0.25 or self.position.y > self.floorheight + 0.25:
+		stick *= 0
+	var dpad = Vector2(
+		(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
+		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
+	)
+	var bomb = Input.is_action_just_pressed("ui_accept")
+
+	#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
+		#var packet_data = {
+		#'input': [playerNum, stick, dpad, bomb]
+		#}
+		#network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
+	#
+	inputs = [stick, dpad, bomb]
 
 func _physics_process(_delta):
 	super._physics_process(_delta)
@@ -50,8 +48,7 @@ func _physics_process(_delta):
 	
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
-	
-	inputs = get_inputs()
+	get_inputs()
 	var stick : Vector2 = inputs[0]
 	var dpad : Vector2 = inputs[1]
 	var bomb : bool = inputs[2]
