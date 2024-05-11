@@ -15,7 +15,7 @@ var playerNum
 func _ready():
 	print(str(playerNum) + " fuck")
 
-var inputs
+var inputs = [Vector2.ZERO, Vector2.ZERO, false]
 
 func get_inputs():
 	if !is_multiplayer_authority():
