@@ -16,7 +16,7 @@ func _ready():
 	print(str(playerNum) + " fuck")
 
 @export var inputs: Array = [Vector2.ZERO, Vector2.ZERO, false]
-@export var test = "poo"
+@export var test:String = "poo"
 func get_inputs():
 	if !is_multiplayer_authority():
 		return 
