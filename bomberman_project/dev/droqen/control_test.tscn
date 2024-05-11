@@ -36,8 +36,6 @@ environment = SubResource("Environment_vv1h3")
 projection = 1
 size = 60.0
 
-[node name="bunny" parent="." instance=ExtResource("1")]
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.464342, -0.177371, 0.867713, -0.00958276, 0.98069, 0.195336, -0.885604, 0.0823876, -0.457075, 0, 21.0302, 0)
 shadow_enabled = true

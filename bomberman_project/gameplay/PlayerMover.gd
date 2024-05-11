@@ -10,6 +10,8 @@ var queued_dpad = null
 var queued_bomb = false
 
 func get_inputs():
+	if !is_multiplayer_authority():
+		return
 	var stick = Vector2(
 		(1 if Input.is_action_pressed("ui_right") else 0) - (1 if Input.is_action_pressed("ui_left") else 0),
 		(1 if Input.is_action_pressed("ui_up") else 0) - (1 if Input.is_action_pressed("ui_down") else 0)
@@ -25,6 +27,8 @@ func get_inputs():
 	return [stick, dpad, bomb]
 
 func _physics_process(_delta):
+	if !is_multiplayer_authority():
+		return
 	super._physics_process(_delta)
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
