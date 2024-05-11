@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1mngtrpbbi1u"]
+[gd_scene load_steps=9 format=3 uid="uid://b1mngtrpbbi1u"]
 
 [ext_resource type="PackedScene" uid="uid://c3snhqwyod4tw" path="res://scene/subsystems/bunny.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://scene/subsystems/block_world.tscn" id="2"]
+[ext_resource type="Script" path="res://dev/droqen/MultiplayerSpawner.gd" id="3_65tue"]
 
 [sub_resource type="PlaneMesh" id="1"]
 size = Vector2(120, 120)
@@ -36,11 +37,13 @@ projection = 1
 size = 60.0
 
 [node name="bunny" parent="." instance=ExtResource("1")]
-maxspeed = null
-accellerp = null
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.464342, -0.177371, 0.867713, -0.00958276, 0.98069, 0.195336, -0.885604, 0.0823876, -0.457075, 0, 21.0302, 0)
 shadow_enabled = true
 
 [node name="block_world" parent="." instance=ExtResource("2")]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath(".")
+script = ExtResource("3_65tue")

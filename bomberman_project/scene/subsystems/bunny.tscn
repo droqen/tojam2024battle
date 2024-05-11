@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3snhqwyod4tw"]
+[gd_scene load_steps=7 format=3 uid="uid://c3snhqwyod4tw"]
 
 [ext_resource type="Script" path="res://gameplay/PlayerMover.gd" id="1"]
 
@@ -17,11 +17,17 @@ bottom_radius = 0.2
 [sub_resource type="CylinderMesh" id="6"]
 height = 10.0
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dcn0l"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="bunny" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("1")
-maxspeed = null
-accellerp = null
 
 [node name="sphere" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.480345, 0)
@@ -47,3 +53,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 [node name="column" type="MeshInstance3D" parent="Node"]
 visible = false
 mesh = SubResource("6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dcn0l")
