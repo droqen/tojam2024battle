@@ -12,7 +12,7 @@ script = ExtResource("1_4a5dv")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("..")
 
-[node name="UI" type="Node" parent="."]
+[node name="UI" type="Node2D" parent="."]
 
 [node name="Host" type="Button" parent="UI"]
 offset_left = 22.0
