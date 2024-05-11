@@ -53,7 +53,7 @@ func _physics_process(_delta):
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
 	
-	var inputs = get_inputs()
+	inputs = get_inputs()
 	var stick : Vector2 = inputs[0]
 	var dpad : Vector2 = inputs[1]
 	var bomb : bool = inputs[2]
