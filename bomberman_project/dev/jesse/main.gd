@@ -28,9 +28,9 @@ func spawn_level(data):
 	return a
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if lobby_id > 0:
-		read_all_p2p_packets()
+#func _process(delta):
+	#if lobby_id > 0:
+		#read_all_p2p_packets()
 
 func join_lobby(id):
 	peer.connect_lobby(id)

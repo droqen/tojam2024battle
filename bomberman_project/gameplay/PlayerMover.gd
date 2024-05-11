@@ -16,6 +16,7 @@ func _ready():
 	print(str(playerNum) + " fuck")
 
 @export var inputs: Array = [Vector2.ZERO, Vector2.ZERO, false]
+@export var test = "poo"
 
 func get_inputs():
 	if !is_multiplayer_authority():
@@ -33,7 +34,8 @@ func get_inputs():
 			(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
 		)
 		var bomb = Input.is_action_just_pressed("ui_accept")
-		
+		if bomb:
+			test = "caca"
 		#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
 			#var packet_data = {
 			#'input': [playerNum, stick, dpad, bomb]
