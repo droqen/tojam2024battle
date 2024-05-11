@@ -32,6 +32,7 @@ func get_inputs():
 		'bomb': 'test 123'
 		}
 		network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
+		print("i pressed space")
 	
 	return [stick, dpad, bomb]
 

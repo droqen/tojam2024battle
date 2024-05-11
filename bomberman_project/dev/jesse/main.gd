@@ -65,6 +65,7 @@ func read_p2p_packet() -> void:
 
 		# Append logic here to deal with packet data
 func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:
+	print("send packet called")
 			# Set the send_type and channel
 	var send_type: int = Steam.P2P_SEND_RELIABLE
 	var channel: int = 0
@@ -98,7 +99,27 @@ func _on_lobby_created(connect, id):
 		lobby_id = id
 		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Lobby"))
 		Steam.setLobbyJoinable(lobby_id,true)
+		
+		print(peer.get_lobby_data(str(id)))
 		print(lobby_id)
+		
+func get_lobby_members() -> void:
+	# Clear your previous lobby list
+	lobby_members.clear()
+
+	# Get the number of members from this lobby from Steam
+	var num_of_members: int = Steam.getNumLobbyMembers(lobby_id)
+	print("somone joined " + str(num_of_members))
+	# Get the data of these players from Steam
+	for this_member in range(0, num_of_members):
+		# Get the member's Steam ID
+		var member_steam_id: int = Steam.getLobbyMemberByIndex(lobby_id, this_member)
+
+		# Get the member's Steam name
+		var member_steam_name: String = Steam.getFriendPersonaName(member_steam_id)
+
+		# Add them to the list
+		lobby_members.append({"steam_id":member_steam_id, "steam_name":member_steam_name})
 		
 func open_lobby_list():
 	Steam.addRequestLobbyListDistanceFilter(Steam.LOBBY_DISTANCE_FILTER_WORLDWIDE)
