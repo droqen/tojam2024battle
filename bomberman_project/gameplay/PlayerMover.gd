@@ -15,7 +15,8 @@ var playerNum
 func _ready():
 	print(str(playerNum) + " fuck")
 
-@export var inputs: Array = [Vector2.ZERO, Vector2.ZERO, false]
+@export var direction:Vector2 = Vector2.ZERO
+@export var bomb:bool = false
 @export var test:String = "poo"
 func get_inputs():
 	if !is_multiplayer_authority():
@@ -32,7 +33,11 @@ func get_inputs():
 		(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
 		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
 	)
-	var bomb = Input.is_action_just_pressed("ui_accept")
+	bomb = Input.is_action_just_pressed("ui_accept")
+	if dpad != Vector2.ZERO:
+		direction = dpad
+	else:
+		direction = stick
 	if bomb:
 		test = "poopoo"
 	#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
@@ -50,21 +55,16 @@ func _physics_process(_delta):
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
 	get_inputs()
-	var stick : Vector2 = inputs[0]
-	var dpad : Vector2 = inputs[1]
-	var bomb : bool = inputs[2]
-	if stick.y: stick.x = 0
-	if self.velocity.y > 0.25 or self.position.y > self.floorheight + 0.25:
-		stick *= 0
+
 	
-	if dpad and not queued_bomb:
-		queued_dpad = dpad
+	if direction and not queued_bomb:
+		queued_dpad = direction
 	if queued_dpad and queued_dpad.y: queued_dpad.x = 0
 	if bomb:
 		queued_bomb = true
 		queued_dpad = null
-	if (queued_dpad or stick) and (down_to_earth or self.floorheight > 0.0):
-			self.try_move(queued_dpad if queued_dpad else stick)
+	if (queued_dpad) and (down_to_earth or self.floorheight > 0.0):
+			self.try_move(queued_dpad)
 			queued_dpad = null
 			#self.position.y = lerp(self.position.y, self.floorheight, 0.5)
 			self.velocity.y = 0.36 * clampf(inverse_lerp(2.0, 0.0, self.floorheight),0.0,1.0)
