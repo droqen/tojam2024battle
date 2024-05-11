@@ -13,6 +13,8 @@ var lobby_vote_kick: bool = false
 var steam_id: int = 0
 var steam_username: String = ""
 
+var players = {}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,6 +64,8 @@ func read_p2p_packet() -> void:
 
 		# Print the packet to output
 		print("Packet: %s" % readable_data)
+		
+		
 
 		# Append logic here to deal with packet data
 func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:

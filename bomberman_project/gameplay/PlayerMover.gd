@@ -8,38 +8,46 @@ func exploded():
 
 var queued_dpad = null
 var queued_bomb = false
+var playerNum
 
 @onready var network_manager = get_node("/root/Main")
 
+func _ready():
+	print(str(playerNum) + " fuck")
+
+var inputs
 
 func get_inputs():
 	if !is_multiplayer_authority():
-		return
-	var stick = Vector2(
-		(1 if Input.is_action_pressed("ui_right") else 0) - (1 if Input.is_action_pressed("ui_left") else 0),
-		(1 if Input.is_action_pressed("ui_up") else 0) - (1 if Input.is_action_pressed("ui_down") else 0)
-	)
-	if stick.y: stick.x = 0
-	if self.velocity.y > 0.25 or self.position.y > self.floorheight + 0.25:
-		stick *= 0
-	var dpad = Vector2(
-		(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
-		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
-	)
-	var bomb = Input.is_action_just_pressed("ui_accept")
-	if bomb:
-		var packet_data = {
-		'bomb': 'test 123'
-		}
-		network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
-		print("i pressed space")
+		return inputs
+	else:
+		var stick = Vector2(
+			(1 if Input.is_action_pressed("ui_right") else 0) - (1 if Input.is_action_pressed("ui_left") else 0),
+			(1 if Input.is_action_pressed("ui_up") else 0) - (1 if Input.is_action_pressed("ui_down") else 0)
+		)
+		if stick.y: stick.x = 0
+		if self.velocity.y > 0.25 or self.position.y > self.floorheight + 0.25:
+			stick *= 0
+		var dpad = Vector2(
+			(1 if Input.is_action_just_pressed("ui_right") else 0) - (1 if Input.is_action_just_pressed("ui_left") else 0),
+			(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
+		)
+		var bomb = Input.is_action_just_pressed("ui_accept")
+		
+		if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
+			var packet_data = {
+			'input': [playerNum, stick, dpad, bomb]
+			}
+			network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
+		
+		return [stick, dpad, bomb]
 	
-	return [stick, dpad, bomb]
+	return [Vector2.ZERO, Vector2.ZERO, false]
 
 func _physics_process(_delta):
-	if !is_multiplayer_authority():
-		return
 	super._physics_process(_delta)
+	
+	
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
 	
@@ -66,6 +74,8 @@ func _physics_process(_delta):
 	if queued_bomb and (down_to_earth):
 		drop_bomb()
 		queued_bomb = false
+		
+	inputs = [Vector2.ZERO, Vector2.ZERO, false]#reset after used
 
 const BOMB = preload("res://scene/subsystems/bomb.tscn")
 

@@ -10,15 +10,14 @@ func _ready():
 		multiplayer.peer_connected.connect(spawn)
 		multiplayer.peer_disconnected.connect(removePlayer)
 
-var players = {}
-
 func spawnPlayer(data):
 	var p = playerScene.instantiate()
 	p.set_multiplayer_authority(data)
-	players[data] = p
+	network_manager.players[data] = p
+	p.playerNum = data
 	network_manager.get_lobby_members()
 	return p
 	
 func removePlayer(data):
-	players[data].queue_free()
-	players.erase(data)
+	network_manager.players[data].queue_free()
+	network_manager.players.erase(data)
