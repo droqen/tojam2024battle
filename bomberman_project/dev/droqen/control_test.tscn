@@ -47,3 +47,4 @@ shadow_enabled = true
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath(".")
 script = ExtResource("3_65tue")
+playerScene = ExtResource("1")
