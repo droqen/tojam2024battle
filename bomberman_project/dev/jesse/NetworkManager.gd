@@ -2,7 +2,7 @@ extends Node2D
 var lobby_id = 0 
 var peer = SteamMultiplayerPeer.new()
 
-
+@onready var ms = get_node("/root/Main/MultiplayerSpawner")
 const PACKET_READ_LIMIT: int = 32
 
 var lobby_data
@@ -19,9 +19,12 @@ var curLevel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
 
-
+func spawn_level(data):
+	var a = (load(data) as PackedScene).instantiate()
+	return a
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#if lobby_id > 0:
@@ -32,7 +35,6 @@ func join_lobby(id):
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
 	host = false
-	$UI.hide()
 	
 func read_all_p2p_packets(read_count: int = 0):
 	if read_count >= PACKET_READ_LIMIT:
@@ -96,8 +98,7 @@ var scene  = preload("res://dev/droqen/control_test.tscn")
 func HostGame():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, lobby_members_max)
 	multiplayer.multiplayer_peer = peer
-	curLevel = scene.instantiate()
-	add_child(curLevel)
+	ms.spawn("res://dev/droqen/control_test.tscn")
 	#curLevel = instantiate("res://dev/droqen/control_test.tscn")
 	host = true
 	

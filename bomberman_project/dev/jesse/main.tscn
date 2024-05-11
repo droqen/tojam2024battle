@@ -34,5 +34,8 @@ offset_bottom = 475.0
 [node name="Lobbies" type="VBoxContainer" parent="UI/LobbyContainer"]
 layout_mode = 2
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [connection signal="pressed" from="UI/Host" to="." method="OnHostPressed"]
 [connection signal="pressed" from="UI/Refresh" to="." method="_on_refresh_pressed"]

@@ -15,7 +15,7 @@ func on_lobby_match_list(lobbies):
 		var but = Button.new()
 		but.set_text(str(lobby_name, " : ", mem_count, "/4"))
 		but.set_size(Vector2(20,100))
-		but.connect("pressed", Callable(self,"NetworkManager.join_lobby").bind(lobby))
+		but.connect("pressed", Callable(self,"join_lobby").bind(lobby))
 		$UI/LobbyContainer/Lobbies.add_child(but)
 
 
@@ -27,4 +27,8 @@ func _on_refresh_pressed():
 
 func OnHostPressed():
 	NetworkManager.HostGame()
+	$UI.hide()
+
+func join_lobby(id):
+	NetworkManager.join_lobby(id)
 	$UI.hide()
