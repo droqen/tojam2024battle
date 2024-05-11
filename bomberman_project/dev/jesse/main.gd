@@ -65,6 +65,9 @@ func read_p2p_packet() -> void:
 		# Print the packet to output
 		print("Packet: %s" % readable_data)
 		
+		if readable_data.has("input"):
+			var input_data = readable_data["input"]
+			players[input_data[0]].inputs = [input_data[1], input_data[2], input_data[3]]
 		
 
 		# Append logic here to deal with packet data

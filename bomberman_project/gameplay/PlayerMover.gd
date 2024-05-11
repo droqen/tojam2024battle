@@ -15,7 +15,7 @@ var playerNum
 func _ready():
 	print(str(playerNum) + " fuck")
 
-var inputs = [Vector2.ZERO, Vector2.ZERO, false]
+@export var inputs = [Vector2.ZERO, Vector2.ZERO, false]
 
 func get_inputs():
 	if !is_multiplayer_authority():
@@ -34,12 +34,12 @@ func get_inputs():
 		)
 		var bomb = Input.is_action_just_pressed("ui_accept")
 		
-		if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
-			var packet_data = {
-			'input': [playerNum, stick, dpad, bomb]
-			}
-			network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
-		
+		#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
+			#var packet_data = {
+			#'input': [playerNum, stick, dpad, bomb]
+			#}
+			#network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
+		#
 		return [stick, dpad, bomb]
 	
 	return [Vector2.ZERO, Vector2.ZERO, false]
@@ -75,7 +75,7 @@ func _physics_process(_delta):
 		drop_bomb()
 		queued_bomb = false
 		
-	inputs = [Vector2.ZERO, Vector2.ZERO, false]#reset after used
+	#inputs = [Vector2.ZERO, Vector2.ZERO, false]#reset after used
 
 const BOMB = preload("res://scene/subsystems/bomb.tscn")
 
