@@ -16,7 +16,7 @@ func _ready():
 	print(str(playerNum) + " fuck")
 
 @export var inputs: Array = [Vector2.ZERO, Vector2.ZERO, false]
-
+@export var test = "poo"
 func get_inputs():
 	if !is_multiplayer_authority():
 		return 
@@ -33,14 +33,15 @@ func get_inputs():
 		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
 	)
 	var bomb = Input.is_action_just_pressed("ui_accept")
-
+	if bomb:
+		test = "poopoo"
 	#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
 		#var packet_data = {
 		#'input': [playerNum, stick, dpad, bomb]
 		#}
 		#network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
 	#
-	inputs = [stick, dpad, bomb]
+	#inputs = [stick, dpad, bomb]
 
 func _physics_process(_delta):
 	super._physics_process(_delta)
