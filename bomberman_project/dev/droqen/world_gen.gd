@@ -22,3 +22,4 @@ func spawn_block_at(x,y):
 				var block = BLOCK.instantiate().setup(w, Vector2(x,y))
 func spawn_block2_at(x,y):
 				var block = BLOCK2.instantiate().setup(w, Vector2(x,y))
+

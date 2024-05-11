@@ -10,8 +10,6 @@ var queued_dpad = null
 var queued_bomb = false
 var playerNum
 
-@onready var network_manager = get_node("/root/Main")
-
 func _ready():
 	print(str(playerNum) + " fuck")
 
