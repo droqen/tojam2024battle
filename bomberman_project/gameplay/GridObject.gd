@@ -30,9 +30,12 @@ func _exit_tree():
 func set_cell(_cell):
 	cell = _cell
 	goalpos = GameGrid.cell_to_pos(cell)
-	if just_entered or not get_parent():
+	if just_entered or not get_parent(): first_placed()
+
+func first_placed():
 		position = goalpos + Vector3.UP * randf_range(1,4)
 		velocity.y = randf_range(0.1,0.2)
+
 func try_move(dir) -> bool:
 	var cell2 = cell + dir
 	if GameGrid.find_objs_at_cell(cell2):
@@ -42,16 +45,24 @@ func try_move(dir) -> bool:
 		return true
 func _physics_process(_delta):
 	just_entered = false
-	var new_ground_velocity = lerp(velocity, (goalpos-position).limit_length(0.2)*2, 0.2)
-	if (goalpos-position).length() < 0.2:
-		new_ground_velocity *= 0.5
+	
+	#var speedmult = 1.5
+	#var accellerp = 0.2
+	#if (goalpos-position).length() < 0.4:
+		#speedmult = 0.5
+		#accellerp = 0.7
+	#var new_ground_velocity = lerp(velocity, (goalpos-position).limit_length(0.5)*speedmult, accellerp)
+	# be snappier
+	
+	var new_ground_velocity = lerp(velocity, (goalpos-position) * 0.5, 0.5)
+	
 	velocity.x = new_ground_velocity.x
 	velocity.z = new_ground_velocity.z
 	if position.y > floorheight + 0.01 or velocity.y > 0:
-		velocity.y -= 0.02
+		velocity.y -= 0.06
 	else:
-		position.y = floorheight
-		if velocity.y < -0.04:
+		position.y = lerp(position.y, floorheight, 0.5)
+		if velocity.y < -0.1:
 			velocity.y *= -0.5
 		else:
 			velocity.y = 0.0

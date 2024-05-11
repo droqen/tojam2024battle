@@ -4,7 +4,7 @@ const IS_EXPLODABLE = true
 
 const EXPLOSION_ROD = preload("res://scene/subsystems/explosion_rod.tscn")
 
-var timer : int = 100
+var timer : int = 200 # longer timer - 3+ seconds
 var maxreach : int = 3
 var detonated : bool = false
 
@@ -14,6 +14,10 @@ func _physics_process(_delta):
 		timer -= 1
 	elif not detonated:
 		detonate()
+func setup_underground_lay():
+	position.y = floorheight - 1.5
+	velocity.y = 0.0
+	return self
 func exploded():
 	if timer > 5: timer = 5
 func detonate():
@@ -41,7 +45,10 @@ func detonate():
 					for obj in GameGrid.find_objs_at_cell(cell2):
 						if obj.has_method('exploded'):
 							obj.call('exploded')
-							finished = true
+							if obj.get('IS_TRANSPARENT'):
+								continue
+							else:
+								finished = true
 				if finished:
 					break
 			explosion_rays[i][0] = cell2
