@@ -9,6 +9,9 @@ func exploded():
 var queued_dpad = null
 var queued_bomb = false
 
+@onready var network_manager = get_node("/root/Main")
+
+
 func get_inputs():
 	if !is_multiplayer_authority():
 		return
@@ -24,6 +27,12 @@ func get_inputs():
 		(1 if Input.is_action_just_pressed("ui_up") else 0) - (1 if Input.is_action_just_pressed("ui_down") else 0)
 	)
 	var bomb = Input.is_action_just_pressed("ui_accept")
+	if bomb:
+		var packet_data = {
+		'bomb': 'test 123'
+		}
+		network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
+	
 	return [stick, dpad, bomb]
 
 func _physics_process(_delta):

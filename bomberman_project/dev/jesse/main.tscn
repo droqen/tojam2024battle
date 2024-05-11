@@ -9,31 +9,33 @@ script = ExtResource("1_de7ry")
 [node name="Steam" type="Node" parent="."]
 script = ExtResource("1_4a5dv")
 
-[node name="Host" type="Button" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Host" type="Button" parent="UI"]
 offset_left = 22.0
 offset_top = 26.0
 offset_right = 131.0
 offset_bottom = 101.0
 text = "Host"
 
-[node name="Refresh" type="Button" parent="."]
+[node name="Refresh" type="Button" parent="UI"]
 offset_left = 24.0
 offset_top = 131.0
 offset_right = 133.0
 offset_bottom = 206.0
 text = "Refresh"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("..")
-
-[node name="LobbyContainer" type="ScrollContainer" parent="."]
+[node name="LobbyContainer" type="ScrollContainer" parent="UI"]
 offset_left = 404.0
 offset_top = 144.0
 offset_right = 785.0
 offset_bottom = 475.0
 
-[node name="Lobbies" type="VBoxContainer" parent="LobbyContainer"]
+[node name="Lobbies" type="VBoxContainer" parent="UI/LobbyContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="Host" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Refresh" to="." method="_on_refresh_pressed"]
+[connection signal="pressed" from="UI/Host" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/Refresh" to="." method="_on_refresh_pressed"]
