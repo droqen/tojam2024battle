@@ -96,11 +96,11 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:
 
 var scene  = preload("res://dev/droqen/control_test.tscn")
 func HostGame():
+	host = true
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, lobby_members_max)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://dev/droqen/control_test.tscn")
 	#curLevel = instantiate("res://dev/droqen/control_test.tscn")
-	host = true
 	
 func _on_lobby_created(connect, id):
 	if connect:

@@ -18,6 +18,7 @@ func setup(parent, cell):
 		parent.add_child(self)
 		owner = parent.owner
 	).call_deferred()
+	GameGrid.gridobjs.append(self)
 	return self
 
 func _enter_tree():

@@ -18,6 +18,9 @@ func _ready():
 					spawn_block_at(x,y)
 				elif randf() < 0.1 and (x!=0 or y!=0):
 					spawn_block2_at(x,y)
+		for obj in GameGrid.gridobjs:
+			print(obj)
+		print(str(GameGrid.gridobjs.size())+ " gamegrid count")
 	else:
 		print("get blocks")
 
