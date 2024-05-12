@@ -8,7 +8,7 @@ enum Type {
 }
 var type : Type
 var goalpos : Vector3
-var cell : Vector2
+@export var cell : Vector2
 
 var velocity : Vector3
 var floorheight : float = 0.0
