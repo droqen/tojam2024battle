@@ -27,7 +27,26 @@ func _ready():
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.p2p_session_request.connect(_on_p2p_session_request)
 	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
+	check_command_line()
 	
+	
+func check_command_line() -> void:
+	var these_arguments: Array = OS.get_cmdline_args()
+
+# There are arguments to process
+	if these_arguments.size() > 0:
+
+# A Steam connection argument exists
+		if these_arguments[0] == "+connect_lobby":
+
+# Lobby invite exists so try to connect to it
+			if int(these_arguments[1]) > 0:
+
+# At this point, you'll probably want to change scenes
+# Something like a loading into lobby screen
+				print("Command line lobby ID: %s" % these_arguments[1])
+				join_lobby(int(these_arguments[1]))
+				
 func _on_p2p_session_request(remote_id: int) -> void:
 	var this_requester: String = Steam.getFriendPersonaName(remote_id)
 	print("%s is requesting a P2P session" % this_requester)
