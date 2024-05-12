@@ -62,7 +62,7 @@ func join_lobby(id):
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
 	host = false
-	make_p2p_handshake()
+	#make_p2p_handshake()
 	
 func read_all_p2p_packets(read_count: int = 0):
 	if read_count >= PACKET_READ_LIMIT:
@@ -89,7 +89,7 @@ func read_p2p_packet() -> void:
 		var readable_data: Dictionary = bytes_to_var(packet_code)
 
 		# Print the packet to output
-		print("Packet: %s" % readable_data)
+		#print("Packet: %s" % readable_data)
 		
 		if readable_data.has("input"):
 			var input_data = readable_data["input"]
@@ -98,10 +98,11 @@ func read_p2p_packet() -> void:
 			if host:
 				var clientId = readable_data["getMap"]
 				print("getMap request recieved")
-				var packet_data = {'payload': [GameGrid.gridJson]}
+				var packet_data = {'recieveMap': [GameGrid.gridJson]}
 				send_p2p_packet(clientId, packet_data)
 		elif readable_data.has("recieveMap"):
-			var map = readable_data["getMap"]
+			var map = readable_data["recieveMap"]
+			print(map)
 			
 
 		# Append logic here to deal with packet data
@@ -191,6 +192,6 @@ func get_lobby_members() -> void:
 
 		# Add them to the list
 		lobby_members.append({"steam_id":member_steam_id, "steam_name":member_steam_name})
-	make_p2p_handshake()
+	#make_p2p_handshake()
 		
 
