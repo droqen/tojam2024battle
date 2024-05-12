@@ -11,7 +11,7 @@ var queued_bomb = false
 var playerNum
 
 
-@export var direction:Vector2 = Vector2.ZERO
+@export var direction:Vector2 = Vector2.ZERO # going to use the multiplayer pos and rot sync to save time
 @export var bomb:bool = false
 func get_inputs():
 	if !is_multiplayer_authority():
