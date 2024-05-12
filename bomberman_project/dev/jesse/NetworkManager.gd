@@ -25,11 +25,14 @@ func _ready():
 	steam_id = Steam.getSteamID()
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
-	Steam.p2p_session_request.connect(_on_p2p_session_request)
+	Steam.p2p_session_request.connect(Callable(self, "_on_p2p_session_request"))
+	multiplayer.connect("peer_connected", Callable(self, "_on_connection_succeeded"))
 	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
 	check_command_line()
 	
-	
+func _on_connection_succeeded(id):
+	print("Connection to lobby succeeded. Peer ID: %d" % id)
+	# Additional setup after successful connection
 func check_command_line() -> void:
 	var these_arguments: Array = OS.get_cmdline_args()
 	if these_arguments.size() > 0:
@@ -58,6 +61,7 @@ func make_p2p_handshake() -> void:
 	send_p2p_packet(0, {"getMap": steam_id})
 
 func join_lobby(id):
+	print("Attempting to connect to lobby: %s" % id)
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
@@ -89,7 +93,7 @@ func read_p2p_packet() -> void:
 		var readable_data: Dictionary = bytes_to_var(packet_code)
 
 		# Print the packet to output
-		#print("Packet: %s" % readable_data)
+		print("Packet: %s" % readable_data)
 		
 		if readable_data.has("input"):
 			var input_data = readable_data["input"]
