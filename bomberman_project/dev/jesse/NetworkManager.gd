@@ -19,6 +19,10 @@ var curLevel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	OS.set_environment("SteamAppID", str(480))
+	OS.set_environment("SteamGameID", str(480))
+	Steam.steamInitEx()
+	steam_id = Steam.getSteamID()
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
 
@@ -27,6 +31,7 @@ func spawn_level(data):
 	return a
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	Steam.run_callbacks()
 	if lobby_id > 0:
 		read_all_p2p_packets()
 
