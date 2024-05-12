@@ -109,9 +109,6 @@ func _on_lobby_created(connect, id):
 		Steam.setLobbyData(lobby_id,"name",str(Steam.getPersonaName()+"'s Lobby"))
 		Steam.setLobbyJoinable(lobby_id,true)
 		
-		print(peer.get_lobby_data(str(id)))
-		print(lobby_id)
-		
 func get_lobby_members() -> void:
 	# Clear your previous lobby list
 	lobby_members.clear()
