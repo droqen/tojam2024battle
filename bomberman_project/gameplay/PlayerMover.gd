@@ -41,7 +41,8 @@ func get_inputs():
 	#inputs = [stick, dpad, bomb]
 
 func _physics_process(_delta):
-		
+	if !is_multiplayer_authority():
+		return 
 	super._physics_process(_delta)
 	
 	
