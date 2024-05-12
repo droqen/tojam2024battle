@@ -16,6 +16,7 @@ func spawnPlayer(data):
 	p.playerSteamId = data
 	p.playerNum = NetworkManager.players.size()
 	print("player " + str(p.playerNum) + " joined")
+	p.set_cell(GameGrid.getSpawnLocation(p.playerNum))
 	NetworkManager.get_lobby_members()
 	return p
 	

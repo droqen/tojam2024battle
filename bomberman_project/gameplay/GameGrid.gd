@@ -1,9 +1,12 @@
 extends Node
 
+@onready var world_width : int = 13
+@onready var world_height : int = 9
 
 var gridobjs = []
 
 var gridJson = []
+
 
 func _ready():
 	pass # Replace with function body.
@@ -46,3 +49,12 @@ func drop_item(type,cell):
 	if type == GridObject.Type.bomb:
 		var bomb = BOMB.instantiate().setup(get_parent(), cell, GridObject.Type.bomb).setup_underground_lay()
 		
+func getSpawnLocation(playerNum: int) -> Vector2:
+	if(playerNum == 1):
+		return Vector2(-world_width + 1, -world_height + 1)
+	if(playerNum == 2):
+		return Vector2(world_width - 1, -world_height + 1)
+	if(playerNum == 3):
+		return Vector2(-world_width + 1, world_height - 1)
+	return Vector2(world_width - 1, world_height - 1)
+	

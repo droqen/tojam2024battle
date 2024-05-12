@@ -3,8 +3,8 @@ extends Node
 const BLOCK = preload("res://gameplay/basic_block.tscn")
 const BLOCK2 = preload("res://gameplay/breakable_block.tscn")
 @onready var w = get_parent()
-@onready var world_width : int = 13
-@onready var world_height : int = 9
+var world_width = GameGrid.world_width
+var world_height = GameGrid.world_height
 var level = {}  # Dictionary to hold block positions
 func _ready():
 	if NetworkManager.host:
