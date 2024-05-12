@@ -27,7 +27,8 @@ func _ready():
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.p2p_session_request.connect(_on_p2p_session_request)
 	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
-	peer.peer_connected.connect(_on_connection_succeeded)#i think this is the secret sauce all along
+	peer.peer_connected.connect(_on_connection_succeeded)
+	multiplayer.peer_connected.connect(_on_connection_succeeded)
 	check_command_line()
 	
 	
@@ -43,6 +44,7 @@ func _on_p2p_session_request(remote_id: int) -> void:
 	var this_requester: String = Steam.getFriendPersonaName(remote_id)
 	print("%s is requesting a P2P session" % this_requester)
 	Steam.acceptP2PSessionWithUser(remote_id)
+	make_p2p_handshake()
 func _on_connection_succeeded():
 	make_p2p_handshake()
 
