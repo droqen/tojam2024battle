@@ -19,8 +19,8 @@ height = 10.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dcn0l"]
 properties/0/path = NodePath(".:bomb")
-properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/spawn = false
+properties/0/replication_mode = 0
 properties/1/path = NodePath(".:cell")
 properties/1/spawn = true
 properties/1/replication_mode = 1
