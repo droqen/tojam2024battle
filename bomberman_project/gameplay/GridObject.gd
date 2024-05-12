@@ -1,6 +1,11 @@
 extends Node3D
 class_name GridObject
 
+enum Type {
+	wall,
+	breakable
+}
+var type : Type
 var goalpos : Vector3
 var cell : Vector2
 
@@ -9,15 +14,19 @@ var floorheight : float = 0.0
 
 var just_entered : bool = false
 
+
+
 @export var maxspeed : float = 10.0
 @export var accellerp : float = 0.1
 
-func setup(parent, cell):
+func setup(parent, cell, _type):
 	set_cell(cell)
 	(func():
 		parent.add_child(self)
 		owner = parent.owner
 	).call_deferred()
+	GameGrid.gridobjs.append(self)
+	type = _type
 	return self
 
 func _enter_tree():

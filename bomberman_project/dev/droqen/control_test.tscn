@@ -1,14 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1mngtrpbbi1u"]
+[gd_scene load_steps=8 format=3 uid="uid://b1mngtrpbbi1u"]
 
 [ext_resource type="PackedScene" uid="uid://c3snhqwyod4tw" path="res://scene/subsystems/bunny.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://b8rkr2k1thu2w" path="res://dev/jesse/gameScene.tscn" id="1_67bmu"]
 [ext_resource type="PackedScene" path="res://scene/subsystems/block_world.tscn" id="2"]
 [ext_resource type="Script" path="res://dev/droqen/MultiplayerSpawner.gd" id="3_65tue"]
-
-[sub_resource type="PlaneMesh" id="1"]
-size = Vector2(120, 120)
-
-[sub_resource type="BoxShape3D" id="2"]
-size = Vector3(200, 2, 200)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qjgws"]
 
@@ -21,14 +16,7 @@ sky = SubResource("Sky_q573s")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-mesh = SubResource("1")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-shape = SubResource("2")
+[node name="StaticBody3D" parent="." instance=ExtResource("1_67bmu")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.588773, 0.808299, 0, -0.808299, 0.588773, 0, 41.202, 28.0458)

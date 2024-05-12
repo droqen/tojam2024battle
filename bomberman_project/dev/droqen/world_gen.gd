@@ -7,18 +7,26 @@ const BLOCK2 = preload("res://gameplay/breakable_block.tscn")
 @onready var world_height : int = 9
 
 func _ready():
-	for x in range(-world_width,world_width+1):
-		for y in range(-world_height,world_height+1):
-			var solid : int = 0
-			if posmod(x, 2) == 1: solid += 1
-			if posmod(y, 2) == 1: solid += 1
-			if abs(x)==world_width or abs(y)==world_height: solid = 2
-			if solid == 2 or (solid == 1 and randf() < 0.25):
-				spawn_block_at(x,y)
-			elif randf() < 0.1 and (x!=0 or y!=0):
-				spawn_block2_at(x,y)
+	if NetworkManager.host:
+		for x in range(-world_width,world_width+1):
+			for y in range(-world_height,world_height+1):
+				var solid : int = 0
+				if posmod(x, 2) == 1: solid += 1
+				if posmod(y, 2) == 1: solid += 1
+				if abs(x)==world_width or abs(y)==world_height: solid = 2
+				if solid == 2 or (solid == 1 and randf() < 0.25):
+					spawn_block_at(x,y)
+				elif randf() < 0.1 and (x!=0 or y!=0):
+					spawn_block2_at(x,y)
+		GameGrid.SetGridJson()
+	else:
+		var packet_data = {'getMap': [NetworkManager.steam_id]}
+		#Steam.getLobbyOwner(NetworkManager.lobby_id)
+		NetworkManager.send_p2p_packet(0, packet_data)
+		print("get blocks")
 
 func spawn_block_at(x,y):
-				var block = BLOCK.instantiate().setup(w, Vector2(x,y))
+				var block = BLOCK.instantiate().setup(w, Vector2(x,y), GridObject.Type.wall)
 func spawn_block2_at(x,y):
-				var block = BLOCK2.instantiate().setup(w, Vector2(x,y))
+				var block = BLOCK2.instantiate().setup(w, Vector2(x,y), GridObject.Type.breakable)
+

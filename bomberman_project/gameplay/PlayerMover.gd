@@ -10,14 +10,9 @@ var queued_dpad = null
 var queued_bomb = false
 var playerNum
 
-@onready var network_manager = get_node("/root/Main")
-
-func _ready():
-	print(str(playerNum) + " fuck")
 
 @export var direction:Vector2 = Vector2.ZERO
 @export var bomb:bool = false
-@export var test:String = "poo"
 func get_inputs():
 	if !is_multiplayer_authority():
 		return 
@@ -38,8 +33,6 @@ func get_inputs():
 		direction = dpad
 	else:
 		direction = stick
-	if bomb:
-		test = "poopoo"
 	#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
 		#var packet_data = {
 		#'input': [playerNum, stick, dpad, bomb]
@@ -72,8 +65,6 @@ func _physics_process(_delta):
 	if queued_bomb and (down_to_earth):
 		drop_bomb()
 		queued_bomb = false
-		
-	#inputs = [Vector2.ZERO, Vector2.ZERO, false]#reset after used
 
 const BOMB = preload("res://scene/subsystems/bomb.tscn")
 
