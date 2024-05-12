@@ -63,9 +63,7 @@ func _physics_process(_delta):
 			self.velocity.y = 0.36 * clampf(inverse_lerp(2.0, 0.0, self.floorheight),0.0,1.0)
 			self.floorheight = 0.0
 	if queued_bomb and (down_to_earth):
-		#drop_bomb()
-		var packet_data = {'getMap': [NetworkManager.steam_id]}
-		NetworkManager.send_p2p_packet(0, packet_data)
+		drop_bomb()
 		queued_bomb = false
 
 const BOMB = preload("res://scene/subsystems/bomb.tscn")
@@ -74,7 +72,7 @@ func drop_bomb():
 	for obj in GameGrid.find_objs_at_cell(cell):
 		if obj != self:
 			return false # drop failed
-	var bomb = BOMB.instantiate().setup(get_parent(), cell).setup_underground_lay()
+	var bomb = BOMB.instantiate().setup(get_parent(), cell, GridObject.Type.bomb).setup_underground_lay()
 	self.velocity.y = 0.45
 	self.floorheight = 2.0
 	if self.position.y < self.floorheight:

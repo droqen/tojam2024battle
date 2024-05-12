@@ -25,3 +25,9 @@ func spawn_block_at(x,y):
 func spawn_block2_at(x,y):
 				var block = BLOCK2.instantiate().setup(w, Vector2(x,y), GridObject.Type.breakable)
 
+func SetUpBlocks():
+	for block in GameGrid.gridJson:
+		if block[1] == GridObject.Type.wall:
+			BLOCK.instantiate().setup(w, block[0], GridObject.Type.wall)
+		elif block[1] == GridObject.Type.breakable:
+			BLOCK2.instantiate().setup(w, block[0], GridObject.Type.breakable)

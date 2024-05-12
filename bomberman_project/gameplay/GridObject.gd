@@ -3,7 +3,8 @@ class_name GridObject
 
 enum Type {
 	wall,
-	breakable
+	breakable,
+	bomb
 }
 var type : Type
 var goalpos : Vector3
