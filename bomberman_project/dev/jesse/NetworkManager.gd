@@ -22,6 +22,7 @@ func _ready():
 	OS.set_environment("SteamAppID", str(480))
 	OS.set_environment("SteamGameID", str(480))
 	Steam.steamInitEx()
+	Steam.p2p_session_request.connect(_on_p2p_session_request)
 	steam_id = Steam.getSteamID()
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
@@ -29,6 +30,15 @@ func _ready():
 func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
 	return a
+
+func _on_p2p_session_request(remote_id: int) -> void:
+	# Get the requester's name
+	var this_requester: String = Steam.getFriendPersonaName(remote_id)
+	print("%s is requesting a P2P session" % this_requester)
+
+	# Accept the P2P session; can apply logic to deny this request if needed
+	Steam.acceptP2PSessionWithUser(remote_id)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	Steam.run_callbacks()
