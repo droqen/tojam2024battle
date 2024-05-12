@@ -98,7 +98,8 @@ func read_p2p_packet() -> void:
 			if host:
 				var clientId = readable_data["getMap"]
 				print("getMap request recieved")
-				send_p2p_packet(clientId, GameGrid.gridJson)
+				var packet_data = {'payload': [GameGrid.gridJson]}
+				send_p2p_packet(clientId, packet_data)
 		elif readable_data.has("recieveMap"):
 			var map = readable_data["getMap"]
 			
