@@ -25,6 +25,12 @@ func _ready():
 	steam_id = Steam.getSteamID()
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
+	Steam.p2p_session_request.connect(_on_p2p_session_request)
+	
+func _on_p2p_session_request(remote_id: int) -> void:
+	var this_requester: String = Steam.getFriendPersonaName(remote_id)
+	print("%s is requesting a P2P session" % this_requester)
+	Steam.acceptP2PSessionWithUser(remote_id)
 
 func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
