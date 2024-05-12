@@ -7,7 +7,7 @@ enum Type {
 	bomb
 }
 var type : Type
-var goalpos : Vector3
+@export var goalpos : Vector3
 @export var cell : Vector2
 
 var velocity : Vector3

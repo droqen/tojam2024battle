@@ -41,23 +41,13 @@ func get_inputs():
 	#inputs = [stick, dpad, bomb]
 
 func _physics_process(_delta):
-	if !is_multiplayer_authority():
-		print()
-		var global_position = self.global_transform.origin
-		var xz_position = Vector2(global_position.x, global_position.z)
-		if cell != xz_position:
-			direction = (xz_position - cell).normalized()
-			direction = Vector2(round(direction.x), round(direction.y))
-	else:
-		get_inputs()
-		
 		
 	super._physics_process(_delta)
 	
 	
 	
 	var down_to_earth = self.velocity.y < 0.5 and self.position.y < self.floorheight + 0.5 and (position.distance_to(goalpos) < 1)
-
+	get_inputs()
 	
 	if direction and not queued_bomb:
 		queued_dpad = direction
