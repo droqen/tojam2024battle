@@ -57,9 +57,13 @@ func _process(delta):
 	if lobby_id > 0:
 		read_all_p2p_packets()
 		
+var shaked = false
+		
 func make_p2p_handshake() -> void:
-	print("Sending P2P handshake to the lobby")
-	send_p2p_packet(0, {"getMap": steam_id})
+	if !shaked:
+		print("Sending P2P handshake to the lobby")
+		send_p2p_packet(0, {"getMap": steam_id})
+		shaked = true
 
 func join_lobby(id):
 	print("Attempting to connect to lobby: %s" % id)
@@ -104,7 +108,7 @@ func read_p2p_packet() -> void:
 				var clientId = readable_data["getMap"]
 				print("getMap request recieved")
 				var packet_data = {'recieveMap': [GameGrid.gridJson]}
-				send_p2p_packet(clientId[0], packet_data)
+				send_p2p_packet(clientId, packet_data)
 		elif readable_data.has("recieveMap"):
 			var map = readable_data["recieveMap"]
 			print(map)
