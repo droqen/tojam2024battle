@@ -26,6 +26,7 @@ func _ready():
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
 	Steam.p2p_session_request.connect(_on_p2p_session_request)
+	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
 	
 func _on_p2p_session_request(remote_id: int) -> void:
 	var this_requester: String = Steam.getFriendPersonaName(remote_id)
@@ -40,12 +41,17 @@ func _process(delta):
 	Steam.run_callbacks()
 	if lobby_id > 0:
 		read_all_p2p_packets()
+		
+func make_p2p_handshake() -> void:
+	print("Sending P2P handshake to the lobby")
+	send_p2p_packet(0, {"message": "handshake", "from": steam_id})
 
 func join_lobby(id):
 	peer.connect_lobby(id)
 	multiplayer.multiplayer_peer = peer
 	lobby_id = id
 	host = false
+	make_p2p_handshake()
 	
 func read_all_p2p_packets(read_count: int = 0):
 	if read_count >= PACKET_READ_LIMIT:
@@ -105,6 +111,36 @@ func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:
 	# Else send it to someone specific
 	else:
 		Steam.sendP2PPacket(this_target, this_data, send_type, channel)
+		
+func _on_p2p_session_connect_fail(steam_id: int, session_error: int) -> void:
+	# If no error was given
+	if session_error == 0:
+		print("WARNING: Session failure with %s: no error given" % steam_id)
+
+	# Else if target user was not running the same game
+	elif session_error == 1:
+		print("WARNING: Session failure with %s: target user not running the same game" % steam_id)
+
+	# Else if local user doesn't own app / game
+	elif session_error == 2:
+		print("WARNING: Session failure with %s: local user doesn't own app / game" % steam_id)
+
+	# Else if target user isn't connected to Steam
+	elif session_error == 3:
+		print("WARNING: Session failure with %s: target user isn't connected to Steam" % steam_id)
+
+	# Else if connection timed out
+	elif session_error == 4:
+		print("WARNING: Session failure with %s: connection timed out" % steam_id)
+
+	# Else if unused
+	elif session_error == 5:
+		print("WARNING: Session failure with %s: unused" % steam_id)
+
+	# Else no known error
+	else:
+		print("WARNING: Session failure with %s: unknown error %s" % [steam_id, session_error])
+		
 
 var scene  = preload("res://dev/droqen/control_test.tscn")
 func HostGame():
