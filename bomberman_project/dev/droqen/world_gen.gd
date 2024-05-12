@@ -21,7 +21,8 @@ func _ready():
 		GameGrid.SetGridJson()
 	else:
 		var packet_data = {'getMap': [NetworkManager.steam_id]}
-		NetworkManager.send_p2p_packet(Steam.getLobbyOwner(NetworkManager.lobby_id), packet_data)
+		#Steam.getLobbyOwner(NetworkManager.lobby_id)
+		NetworkManager.send_p2p_packet(0, packet_data)
 		print("get blocks")
 
 func spawn_block_at(x,y):

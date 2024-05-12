@@ -66,7 +66,7 @@ func read_p2p_packet() -> void:
 		if readable_data.has("input"):
 			var input_data = readable_data["input"]
 			players[input_data[0]].inputs = [input_data[1], input_data[2], input_data[3]]
-		elif readable_data.has("getMap"):
+		if readable_data.has("getMap"):
 			var clientId = readable_data["getMap"]
 			print("getMap request recieved")
 		
@@ -101,6 +101,7 @@ func HostGame():
 	peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC, lobby_members_max)
 	multiplayer.multiplayer_peer = peer
 	ms.spawn("res://dev/droqen/control_test.tscn")
+	Steam.allowP2PPacketRelay(true)
 	#curLevel = instantiate("res://dev/droqen/control_test.tscn")
 	
 func _on_lobby_created(connect, id):
