@@ -18,14 +18,16 @@ func cell_to_pos(cell):
 func find_objs_at_cell(cell):
 	var objs = []
 	for obj in gridobjs:
-		if obj.cell == cell:
-			objs.append(obj)
+		if is_instance_valid(obj):
+			if obj.cell == cell:
+				objs.append(obj)
 	return objs
 
 func is_wall(cell) -> bool:
 	for obj in find_objs_at_cell(cell):
-		if obj.get('IS_WALL'):
-			return true
+		if is_instance_valid(obj):
+			if obj.get('IS_WALL'):
+				return true
 	return false
 	
 func SetGridJson():
