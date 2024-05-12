@@ -9,6 +9,7 @@ func exploded():
 var queued_dpad = null
 var queued_bomb = false
 var playerNum
+var playerSteamId
 
 @export var direction:Vector2 = Vector2.ZERO 
 @export var bomb:bool = false
