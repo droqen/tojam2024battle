@@ -25,13 +25,14 @@ func _ready():
 	steam_id = Steam.getSteamID()
 	ms.spawn_function = spawn_level
 	peer.lobby_created.connect(_on_lobby_created)
-	Steam.p2p_session_request.connect(Callable(self, "_on_p2p_session_request"))
+	Steam.p2p_session_request.connect(_on_p2p_session_request)
 	multiplayer.connect("peer_connected", Callable(self, "_on_connection_succeeded"))
 	Steam.p2p_session_connect_fail.connect(_on_p2p_session_connect_fail)
 	check_command_line()
 	
 func _on_connection_succeeded(id):
 	print("Connection to lobby succeeded. Peer ID: %d" % id)
+	#make_p2p_handshake()
 	# Additional setup after successful connection
 func check_command_line() -> void:
 	var these_arguments: Array = OS.get_cmdline_args()
@@ -45,7 +46,7 @@ func _on_p2p_session_request(remote_id: int) -> void:
 	var this_requester: String = Steam.getFriendPersonaName(remote_id)
 	print("%s is requesting a P2P session" % this_requester)
 	Steam.acceptP2PSessionWithUser(remote_id)
-	make_p2p_handshake()
+	#make_p2p_handshake()
 
 func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
@@ -196,6 +197,6 @@ func get_lobby_members() -> void:
 
 		# Add them to the list
 		lobby_members.append({"steam_id":member_steam_id, "steam_name":member_steam_name})
-	#make_p2p_handshake()
+	make_p2p_handshake()
 		
 
