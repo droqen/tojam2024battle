@@ -190,5 +190,6 @@ func get_lobby_members() -> void:
 
 		# Add them to the list
 		lobby_members.append({"steam_id":member_steam_id, "steam_name":member_steam_name})
+	make_p2p_handshake()
 		
 
