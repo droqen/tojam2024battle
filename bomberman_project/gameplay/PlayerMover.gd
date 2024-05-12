@@ -63,7 +63,9 @@ func _physics_process(_delta):
 			self.velocity.y = 0.36 * clampf(inverse_lerp(2.0, 0.0, self.floorheight),0.0,1.0)
 			self.floorheight = 0.0
 	if queued_bomb and (down_to_earth):
-		drop_bomb()
+		#drop_bomb()
+		var packet_data = {'getMap': [NetworkManager.steam_id]}
+		NetworkManager.send_p2p_packet(0, packet_data)
 		queued_bomb = false
 
 const BOMB = preload("res://scene/subsystems/bomb.tscn")
