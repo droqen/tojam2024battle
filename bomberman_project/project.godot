@@ -19,6 +19,7 @@ config/icon="res://scene/Main Menu/tempicon.png"
 
 GameGrid="*res://gameplay/GameGrid.gd"
 NetworkManager="*res://dev/jesse/NetworkManager.gd"
+GlobalMultiplayerSpawner="res://dev/droqen/MultiplayerSpawner.gd"
 
 [gui]
 

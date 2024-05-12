@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://yio7xfl5h1ek"]
 
-[ext_resource path="res://dev/droqen/world_gen.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://dev/droqen/world_gen.gd" id="1"]
 
 [node name="block_world" type="Node3D"]
 
 [node name="world_gen" type="Node" parent="."]
-script = ExtResource( 1 )
+script = ExtResource("1")

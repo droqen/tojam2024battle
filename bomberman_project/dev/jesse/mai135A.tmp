@@ -1,34 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://nr77umqxgwti"]
+[gd_scene load_steps=2 format=3 uid="uid://nr77umqxgwti"]
 
 [ext_resource type="Script" path="res://dev/jesse/Main.gd" id="1_fb4eu"]
-[ext_resource type="PackedScene" uid="uid://cunyonubr8rxa" path="res://scene/Main Menu/main_menu.tscn" id="2_sveos"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fb4eu")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 1150.0
-offset_bottom = 640.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Main_Menu" parent="Control" node_paths=PackedStringArray("main_ui") instance=ExtResource("2_sveos")]
-layout_mode = 1
-main_ui = NodePath("../../UI")
-
-[node name="UI" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1150.0
-offset_bottom = 640.0
+[node name="UI" type="Node2D" parent="."]
 
 [node name="Host" type="Button" parent="UI"]
-layout_mode = 0
 offset_left = 22.0
 offset_top = 26.0
 offset_right = 131.0
@@ -36,7 +15,6 @@ offset_bottom = 101.0
 text = "Host"
 
 [node name="Refresh" type="Button" parent="UI"]
-layout_mode = 0
 offset_left = 24.0
 offset_top = 131.0
 offset_right = 133.0
@@ -44,7 +22,6 @@ offset_bottom = 206.0
 text = "Refresh"
 
 [node name="LobbyContainer" type="ScrollContainer" parent="UI"]
-layout_mode = 0
 offset_left = 404.0
 offset_top = 144.0
 offset_right = 785.0

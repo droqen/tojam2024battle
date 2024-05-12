@@ -1,6 +1,6 @@
 extends MultiplayerSpawner
 
-@export var playerScene : PackedScene
+@export var playerScene : PackedScene #= preload("res://dev/jesse/gameScene.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spawn_function = spawnPlayer
