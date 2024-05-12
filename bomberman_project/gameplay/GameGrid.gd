@@ -2,6 +2,8 @@ extends Node
 
 var gridobjs = []
 
+var gridJson = []
+
 func _ready():
 	pass # Replace with function body.
 func reg(go):
@@ -24,3 +26,8 @@ func is_wall(cell) -> bool:
 		if obj.get('IS_WALL'):
 			return true
 	return false
+	
+func SetGridJson():
+	gridJson.clear()
+	for obj in gridobjs:
+		gridJson.append([obj.cell,obj.type])

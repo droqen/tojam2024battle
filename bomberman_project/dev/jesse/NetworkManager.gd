@@ -26,9 +26,9 @@ func spawn_level(data):
 	var a = (load(data) as PackedScene).instantiate()
 	return a
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#if lobby_id > 0:
-		#read_all_p2p_packets()
+func _process(delta):
+	if lobby_id > 0:
+		read_all_p2p_packets()
 
 func join_lobby(id):
 	peer.connect_lobby(id)
@@ -66,8 +66,9 @@ func read_p2p_packet() -> void:
 		if readable_data.has("input"):
 			var input_data = readable_data["input"]
 			players[input_data[0]].inputs = [input_data[1], input_data[2], input_data[3]]
-		elif readable_data.has("input"):
-			var input_data = readable_data["input"]
+		elif readable_data.has("getMap"):
+			var clientId = readable_data["getMap"]
+			print("getMap request recieved")
 		
 
 		# Append logic here to deal with packet data

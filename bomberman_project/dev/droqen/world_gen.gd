@@ -18,14 +18,14 @@ func _ready():
 					spawn_block_at(x,y)
 				elif randf() < 0.1 and (x!=0 or y!=0):
 					spawn_block2_at(x,y)
-		for obj in GameGrid.gridobjs:
-			print(obj)
-		print(str(GameGrid.gridobjs.size())+ " gamegrid count")
+		GameGrid.SetGridJson()
 	else:
+		var packet_data = {'getMap': [NetworkManager.steam_id]}
+		NetworkManager.send_p2p_packet(1, packet_data)
 		print("get blocks")
 
 func spawn_block_at(x,y):
-				var block = BLOCK.instantiate().setup(w, Vector2(x,y))
+				var block = BLOCK.instantiate().setup(w, Vector2(x,y), GridObject.Type.wall)
 func spawn_block2_at(x,y):
-				var block = BLOCK2.instantiate().setup(w, Vector2(x,y))
+				var block = BLOCK2.instantiate().setup(w, Vector2(x,y), GridObject.Type.breakable)
 
