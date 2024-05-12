@@ -19,11 +19,6 @@ func _ready():
 				elif randf() < 0.1 and (x!=0 or y!=0):
 					spawn_block2_at(x,y)
 		GameGrid.SetGridJson()
-	else:
-		var packet_data = {'getMap': [NetworkManager.steam_id]}
-		#Steam.getLobbyOwner(NetworkManager.lobby_id)
-		NetworkManager.send_p2p_packet(0, packet_data)
-		print("get blocks")
 
 func spawn_block_at(x,y):
 				var block = BLOCK.instantiate().setup(w, Vector2(x,y), GridObject.Type.wall)
