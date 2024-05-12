@@ -32,13 +32,6 @@ func get_inputs():
 		direction = dpad
 	else:
 		direction = stick
-	#if bomb or dpad != Vector2.ZERO or stick != Vector2.ZERO:
-		#var packet_data = {
-		#'input': [playerNum, stick, dpad, bomb]
-		#}
-		#network_manager.send_p2p_packet(0, packet_data) # Broadcast to everyone
-	#
-	#inputs = [stick, dpad, bomb]
 
 func _physics_process(_delta):
 	if !is_multiplayer_authority():
@@ -72,6 +65,9 @@ func drop_bomb():
 	for obj in GameGrid.find_objs_at_cell(cell):
 		if obj != self:
 			return false # drop failed
+	
+	var packet_data = {'dropItem': [GridObject.Type.bomb , cell]}
+	NetworkManager.send_p2p_packet(0, packet_data) # Broadcast to everyone
 	var bomb = BOMB.instantiate().setup(get_parent(), cell, GridObject.Type.bomb).setup_underground_lay()
 	self.velocity.y = 0.45
 	self.floorheight = 2.0

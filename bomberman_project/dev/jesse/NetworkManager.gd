@@ -113,7 +113,9 @@ func read_p2p_packet() -> void:
 			var map = readable_data["recieveMap"][0]
 			print(map)
 			GameGrid.SetUpGridFromJson(map)
-			
+		elif readable_data.has("dropItem"):
+			var item = readable_data["dropItem"][0]
+			GameGrid.drop_item(item[0], item[1])
 
 		# Append logic here to deal with packet data
 func send_p2p_packet(this_target: int, packet_data: Dictionary) -> void:

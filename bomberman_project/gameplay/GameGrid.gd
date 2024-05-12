@@ -34,8 +34,15 @@ func SetGridJson():
 	gridJson.clear()
 	for obj in gridobjs:
 		gridJson.append([obj.cell,obj.type])
+		
+const BOMB = preload("res://scene/subsystems/bomb.tscn")
 
 func SetUpGridFromJson(json):
 	gridJson = json
 	var worldGen = get_node("/root/Main/Node3D/block_world/world_gen")
 	worldGen.SetUpBlocks()
+	
+func drop_item(type,cell):
+	if type == GridObject.Type.bomb:
+		var bomb = BOMB.instantiate().setup(get_parent(), cell, GridObject.Type.bomb).setup_underground_lay()
+		
